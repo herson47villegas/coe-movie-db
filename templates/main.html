@@ -5,7 +5,8 @@
 </head>
 
 <body style = "background-color: black;">
-
+    <script src="/static/js/vendors/jquery.js"></script>
+    <script src="/static/js/vendors/handlebars.js"></script>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -44,6 +45,18 @@
     <script src="/static/js/vendors/jquery.js"></script>
     <script src="/static/js/vendors/bootstrap.min.js"></script>
     <script src="/static/js/app.js"></script>
+{%raw%}
+  <script type="text/x-handlers-template" id="tpl-tweet">
+      <div class="col-md-4 portfolio-item">
+      <a href="/view/{{movie-id}}">
+      <img class="img-responsive" src={{imageSrc}} style = "width: 500; height: 500;">
+      </a>
+      <h3>
+      <a href="/view/{{movie-id}}">  {{title}} </a>
+      </h3>
+      </div>
+      </script>
+{%endraw%}
 
 </body>
 
