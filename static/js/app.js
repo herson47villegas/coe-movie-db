@@ -59,19 +59,19 @@
     function displayMovies(data) {
         data.results.forEach(function(movie) {
             var imageSrc = config.images.base_url + config.images.poster_sizes[4] + movie.poster_path;
-            var htmlStr = [
-                            '<div class="col-md-4 portfolio-item">',
-                                '<a href="/view/'+movie.id+'">',
-                                    '<img class="img-responsive" src="' + imageSrc + '" alt="" style = "width: 500; height: 500;">',
-                                '</a>',
-                                '<h3>',
-                                    '<a href="/view/'+movie.id+'">' + movie.title +'</a>',
-                                '</h3>',
-                            '</div>'
-                            ];
-            $('.movies-list').append($(htmlStr.join('')));
+            var htmlStr = { 
+                "movie-id": movie.id,
+                "title": movie.title,
+                "imageSrc": imageSrc
+            }
+            var getraw = $("#tpl-tweet").html();
+            var transform = Handlebars.compile(getraw);
+            var html = transform(htmlStr);
+            $('.movies-list').append(html);
         });
     }
+
+    
 
     function loadNowShowing() {
         var nowShowingUrl = baseUrl + 'movie/now_playing';
