@@ -59,20 +59,32 @@
     function displayMovies(data) {
         data.results.forEach(function(movie) {
             var imageSrc = config.images.base_url + config.images.poster_sizes[4] + movie.poster_path;
+            var drop = config.images.base_url + config.images.poster_sizes[4] + movie.backdrop_path;
             var htmlStr = { 
                 "movie-id": movie.id,
                 "title": movie.title,
-                "imageSrc": imageSrc
+                "imageSrc": imageSrc,
+                "bdrop": drop
             }
             var getraw = $("#tpl-tweet").html();
             var transform = Handlebars.compile(getraw);
             var html = transform(htmlStr);
             $('.movies-list').append(html);
+            Moviecast(movie.id);
         });
     }
 
-    
+	function Moviecast(id){
+		reqParam = {api_key:api_Key};
+            url = baseUrl +  "movie/"+id+"/credits";
+            $.get(url, reqParam, function(response){
+                for(var i=0; i<4; i++){
+                    $('#'+id).append('<li>'+response.cast[i].name+'</li>');
+               }
 
+            });
+
+    }
     function loadNowShowing() {
         var nowShowingUrl = baseUrl + 'movie/now_playing';
         $('.movies-list').html('');
